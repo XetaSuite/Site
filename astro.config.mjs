@@ -4,7 +4,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://xetasuite.xetaravel.com',
+	site: 'https://xetasuite.com',
 	integrations: [
 		starlight({
 			title: 'XetaSuite',
@@ -16,7 +16,7 @@ export default defineConfig({
 			lastUpdated: true,
 			favicon: '/favicon.svg',
 			editLink: {
-				baseUrl: 'https://github.com/XetaIO/edit/main/',
+				baseUrl: 'https://github.com/XetaSuite/Site/edit/main/',
 			},
 			defaultLocale: 'en',
 			locales: {
@@ -30,7 +30,7 @@ export default defineConfig({
 				},
 			},
 			social: [
-				{ icon: 'github', label: 'GitHub', href: 'https://github.com/XetaIO/XetaSuite-Core' },
+				{ icon: 'github', label: 'GitHub', href: 'https://github.com/XetaSuite/Core' },
 			],
 			customCss: [
 				'./src/styles/custom.css',
