@@ -81,6 +81,7 @@ export default defineConfig({
 					items: [
 						{ label: 'Authentification API', translations: { en: 'API Authentication' }, slug: 'api/auth' },
 						{ label: 'Endpoints principaux', translations: { en: 'Main endpoints' }, slug: 'api/endpoints' },
+						{ label: 'Serveur MCP', translations: { en: 'MCP Server' }, slug: 'api/mcp' },
 					],
 				},
 				{

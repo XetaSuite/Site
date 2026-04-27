@@ -1,0 +1,137 @@
+---
+title: Serveur MCP
+description: Intégration MCP (Model Context Protocol) de XetaSuite — description et référence des tools disponibles.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## Qu'est-ce que le serveur MCP ?
+
+XetaSuite expose un **serveur MCP** (*Model Context Protocol*) permettant à des agents IA (Copilot, Claude, Cursor, etc.) d'interagir directement avec vos données ERP via des outils structurés.
+
+Le serveur est accessible à l'adresse :
+
+```
+https://<votre-domaine>/mcp
+```
+
+### Authentification
+
+Les outils MCP utilisent l'authentification **Sanctum Bearer Token** (Personal Access Token). Aucune session web n'est requise.
+
+```http
+Authorization: Bearer <votre-token>
+```
+
+<Aside type="tip">
+  Générez un Personal Access Token depuis votre profil utilisateur dans XetaSuite.
+</Aside>
+
+### Multi-tenant & contexte de site
+
+Chaque appel outil est scopé à un site. Le site est résolu selon l'ordre de priorité suivant :
+
+1. Le paramètre `site_id` passé directement dans l'appel de l'outil
+2. Le `current_site_id` configuré sur le compte de l'utilisateur authentifié
+
+Les permissions Spatie sont automatiquement activées pour le site résolu — toutes les opérations restent soumises aux rôles et permissions de l'utilisateur.
+
+<Aside type="caution">
+  Si aucun site ne peut être résolu, ou si l'utilisateur n'appartient pas au site demandé, l'outil retourne une erreur `403 Unauthorized`.
+</Aside>
+
+---
+
+## Référence des tools
+
+Chaque domaine expose cinq opérations : **list**, **get**, **create**, **update**, **delete**.
+
+### Incidents
+
+| Tool | Description |
+|------|-------------|
+| `list-incidents-tool` | Liste les incidents du site avec filtres optionnels (matériel, statut, sévérité, recherche textuelle) |
+| `get-incident-tool` | Récupère un incident par son ID |
+| `create-incident-tool` | Crée un nouvel incident |
+| `update-incident-tool` | Met à jour un incident existant |
+| `delete-incident-tool` | Supprime un incident |
+
+### Maintenances
+
+| Tool | Description |
+|------|-------------|
+| `list-maintenances-tool` | Liste les maintenances du site |
+| `get-maintenance-tool` | Récupère une maintenance par son ID |
+| `create-maintenance-tool` | Crée une nouvelle maintenance |
+| `update-maintenance-tool` | Met à jour une maintenance existante |
+| `delete-maintenance-tool` | Supprime une maintenance |
+
+### Nettoyages
+
+| Tool | Description |
+|------|-------------|
+| `list-cleanings-tool` | Liste les nettoyages du site |
+| `get-cleaning-tool` | Récupère un nettoyage par son ID |
+| `create-cleaning-tool` | Crée un nouveau nettoyage |
+| `update-cleaning-tool` | Met à jour un nettoyage existant |
+| `delete-cleaning-tool` | Supprime un nettoyage |
+
+### Articles (Items)
+
+| Tool | Description |
+|------|-------------|
+| `list-items-tool` | Liste les articles du site |
+| `get-item-tool` | Récupère un article par son ID |
+| `create-item-tool` | Crée un nouvel article (avec seuils d'alerte, fournisseur, matériels liés) |
+| `update-item-tool` | Met à jour un article existant |
+| `delete-item-tool` | Supprime un article |
+
+### Mouvements d'articles
+
+| Tool | Description |
+|------|-------------|
+| `list-item-movements-tool` | Liste les mouvements d'articles du site |
+| `get-item-movement-tool` | Récupère un mouvement par son ID |
+| `create-item-movement-tool` | Crée un mouvement (entrée/sortie de stock) |
+| `update-item-movement-tool` | Met à jour un mouvement existant |
+| `delete-item-movement-tool` | Supprime un mouvement |
+
+### Matériels
+
+| Tool | Description |
+|------|-------------|
+| `list-materials-tool` | Liste les matériels du site |
+| `get-material-tool` | Récupère un matériel par son ID |
+| `create-material-tool` | Crée un nouveau matériel |
+| `update-material-tool` | Met à jour un matériel existant |
+| `delete-material-tool` | Supprime un matériel |
+
+### Événements calendrier
+
+| Tool | Description |
+|------|-------------|
+| `list-calendar-events-tool` | Liste les événements du calendrier |
+| `get-calendar-event-tool` | Récupère un événement par son ID |
+| `create-calendar-event-tool` | Crée un nouvel événement |
+| `update-calendar-event-tool` | Met à jour un événement existant |
+| `delete-calendar-event-tool` | Supprime un événement |
+
+---
+
+## Configuration dans VS Code
+
+Ajoutez le serveur MCP dans votre fichier `.vscode/mcp.json` :
+
+```json
+{
+  "servers": {
+    "xetasuite": {
+      "type": "http",
+      "url": "https://<votre-domaine>/mcp",
+      "headers": {
+        "Authorization": "Bearer <votre-token>"
+      }
+    }
+  }
+}
+```

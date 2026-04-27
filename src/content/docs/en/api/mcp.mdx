@@ -1,0 +1,137 @@
+---
+title: MCP Server
+description: XetaSuite MCP (Model Context Protocol) integration — description and tools reference.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## What is the MCP Server?
+
+XetaSuite exposes an **MCP server** (*Model Context Protocol*) that allows AI agents (Copilot, Claude, Cursor, etc.) to interact directly with your ERP data through structured tools.
+
+The server is available at:
+
+```
+https://<your-domain>/mcp
+```
+
+### Authentication
+
+MCP tools use **Sanctum Bearer Token** authentication (Personal Access Token). No web session is required.
+
+```http
+Authorization: Bearer <your-token>
+```
+
+<Aside type="tip">
+  Generate a Personal Access Token from your user profile in XetaSuite.
+</Aside>
+
+### Multi-tenant & site context
+
+Each tool call is scoped to a site. The site is resolved using the following priority:
+
+1. The `site_id` parameter passed directly in the tool call
+2. The `current_site_id` configured on the authenticated user's account
+
+Spatie permissions are automatically activated for the resolved site — all operations remain subject to the user's roles and permissions.
+
+<Aside type="caution">
+  If no site can be resolved, or the user does not belong to the requested site, the tool returns a `403 Unauthorized` error.
+</Aside>
+
+---
+
+## Tools Reference
+
+Each domain exposes five operations: **list**, **get**, **create**, **update**, **delete**.
+
+### Incidents
+
+| Tool | Description |
+|------|-------------|
+| `list-incidents-tool` | List site incidents with optional filters (material, status, severity, text search) |
+| `get-incident-tool` | Retrieve an incident by its ID |
+| `create-incident-tool` | Create a new incident |
+| `update-incident-tool` | Update an existing incident |
+| `delete-incident-tool` | Delete an incident |
+
+### Maintenances
+
+| Tool | Description |
+|------|-------------|
+| `list-maintenances-tool` | List site maintenances |
+| `get-maintenance-tool` | Retrieve a maintenance by its ID |
+| `create-maintenance-tool` | Create a new maintenance |
+| `update-maintenance-tool` | Update an existing maintenance |
+| `delete-maintenance-tool` | Delete a maintenance |
+
+### Cleanings
+
+| Tool | Description |
+|------|-------------|
+| `list-cleanings-tool` | List site cleanings |
+| `get-cleaning-tool` | Retrieve a cleaning by its ID |
+| `create-cleaning-tool` | Create a new cleaning |
+| `update-cleaning-tool` | Update an existing cleaning |
+| `delete-cleaning-tool` | Delete a cleaning |
+
+### Items
+
+| Tool | Description |
+|------|-------------|
+| `list-items-tool` | List site items |
+| `get-item-tool` | Retrieve an item by its ID |
+| `create-item-tool` | Create a new item (with alert thresholds, supplier, linked materials) |
+| `update-item-tool` | Update an existing item |
+| `delete-item-tool` | Delete an item |
+
+### Item Movements
+
+| Tool | Description |
+|------|-------------|
+| `list-item-movements-tool` | List site item movements |
+| `get-item-movement-tool` | Retrieve a movement by its ID |
+| `create-item-movement-tool` | Create a movement (stock in/out) |
+| `update-item-movement-tool` | Update an existing movement |
+| `delete-item-movement-tool` | Delete a movement |
+
+### Materials
+
+| Tool | Description |
+|------|-------------|
+| `list-materials-tool` | List site materials |
+| `get-material-tool` | Retrieve a material by its ID |
+| `create-material-tool` | Create a new material |
+| `update-material-tool` | Update an existing material |
+| `delete-material-tool` | Delete a material |
+
+### Calendar Events
+
+| Tool | Description |
+|------|-------------|
+| `list-calendar-events-tool` | List calendar events |
+| `get-calendar-event-tool` | Retrieve an event by its ID |
+| `create-calendar-event-tool` | Create a new event |
+| `update-calendar-event-tool` | Update an existing event |
+| `delete-calendar-event-tool` | Delete an event |
+
+---
+
+## Configuration in VS Code
+
+Add the MCP server in your `.vscode/mcp.json` file:
+
+```json
+{
+  "servers": {
+    "xetasuite": {
+      "type": "http",
+      "url": "https://<your-domain>/mcp",
+      "headers": {
+        "Authorization": "Bearer <your-token>"
+      }
+    }
+  }
+}
+```
