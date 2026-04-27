@@ -1,49 +1,66 @@
-# Starlight Starter Kit: Basics
+# XetaSuite — Documentation Site
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-```
-npm create astro@latest -- --template starlight
-```
+Site de documentation officiel de **XetaSuite**, un ERP open source multi-sites pour la gestion de maintenance, d'incidents et d'inventaire.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- 🌐 **Production** : [xetasuite.com](https://xetasuite.com)
+- 💻 **Dépôt backend** : [github.com/XetaSuite/Core](https://github.com/XetaSuite/Core)
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+## Structure du projet
 
 ```
 .
-├── public/
+├── public/                        # Fichiers statiques (favicon, images)
 ├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
+│   ├── assets/                    # Logo, images
+│   ├── styles/
+│   │   └── custom.css             # Surcharges CSS
+│   └── content/
+│       └── docs/                  # Pages en français (langue par défaut)
+│           ├── getting-started/
+│           ├── concepts/
+│           ├── guides/
+│           ├── admin/
+│           ├── api/
+│           ├── deployment/
+│           └── en/                # Pages en anglais
+│               ├── getting-started/
+│               ├── concepts/
+│               ├── guides/
+│               ├── admin/
+│               ├── api/
+│               └── deployment/
 ├── astro.config.mjs
 ├── package.json
 └── tsconfig.json
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## Langues
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+Le site est bilingue **Français / English** via Starlight i18n :
 
-Static assets, like favicons, can be placed in the `public/` directory.
+- `src/content/docs/` → Français (langue racine par défaut)
+- `src/content/docs/en/` → English
 
-## 🧞 Commands
+## Contenu de la documentation
 
-All commands are run from the root of the project, from a terminal:
+| Section | Description |
+| :------ | :---------- |
+| **Démarrage** | Installation backend & frontend, configuration `.env`, mode démo |
+| **Concepts** | Authentification, rôles & permissions, multi-sites & zones |
+| **Guides** | Entreprises, maintenances, incidents, mouvements d'articles |
+| **Administration** | Gestion des utilisateurs, rôles et permissions |
+| **API** | Authentification API, endpoints principaux, serveur MCP |
+| **Déploiement** | Mise en production, queue workers, cron scheduler |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Commandes
 
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+| Commande              | Action                                        |
+| :-------------------- | :-------------------------------------------- |
+| `npm install`         | Installe les dépendances                      |
+| `npm run dev`         | Serveur de développement sur `localhost:4321` |
+| `npm run build`       | Build de production vers `./dist/`            |
+| `npm run preview`     | Prévisualisation du build en local            |
