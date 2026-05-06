@@ -1,0 +1,199 @@
+---
+title: Installation & Build Mobile
+description: Guide d'installation, de configuration et de build de l'application mobile XetaSuite (React Native / Expo).
+---
+
+import { Steps, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+L'application mobile XetaSuite est développée avec **React Native** et **Expo** (SDK 55). Elle communique avec le backend XetaSuite via l'API Sanctum et offre un assistant vocal intégré.
+
+## Prérequis
+
+- **Node.js** 20+
+- **npm** 10+ ou **yarn**
+- **Expo CLI** (`npx expo`)
+- **EAS CLI** pour les builds cloud (`npm install -g eas-cli`)
+- Un compte [Expo](https://expo.dev) (gratuit)
+- Pour les builds Android natifs en local : **Android Studio** avec un SDK Android configuré
+- Pour les builds iOS en local : **macOS** + **Xcode** 15+
+
+<Aside type="tip">
+  Pour les builds de production, EAS Build (cloud) est recommandé et ne nécessite pas d'environnement natif local.
+</Aside>
+
+## Installation
+
+<Steps>
+
+1. **Cloner le repository**
+
+   ```bash
+   git clone https://github.com/XetaSuite/Mobile.git
+   cd Mobile
+   ```
+
+2. **Installer les dépendances**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configurer les variables d'environnement**
+
+   Créez un fichier `.env` à la racine :
+
+   ```env
+   EXPO_PUBLIC_API_URL=https://api.xetasuite.com
+   ```
+
+   Pour le développement local, pointez vers votre backend :
+
+   ```env
+   EXPO_PUBLIC_API_URL=http://192.168.1.x:8000
+   ```
+
+   <Aside type="caution">
+     Utilisez l'adresse IP locale de votre machine (pas `localhost`) car l'émulateur Android ne peut pas résoudre `localhost` vers l'hôte.
+   </Aside>
+
+4. **Se connecter à Expo**
+
+   ```bash
+   eas login
+   ```
+
+</Steps>
+
+## Lancer en développement
+
+<Tabs>
+  <TabItem label="Expo Go (rapide)">
+    Lance un serveur de développement compatible avec l'application **Expo Go** :
+
+    ```bash
+    npx expo start
+    ```
+
+    Scannez le QR code avec l'app Expo Go sur votre téléphone.
+
+    <Aside type="caution">
+      Expo Go ne supporte pas tous les modules natifs (notamment `expo-speech-recognition`). Utilisez un dev client pour tester ces fonctionnalités.
+    </Aside>
+  </TabItem>
+  <TabItem label="Dev Client (recommandé)">
+    Build un client de développement incluant tous les modules natifs :
+
+    ```bash
+    # Build le dev client via EAS (cloud)
+    eas build --profile development --platform android
+
+    # Puis lancer le serveur
+    npx expo start --dev-client
+    ```
+  </TabItem>
+  <TabItem label="Émulateur Android">
+    Avec Android Studio configuré :
+
+    ```bash
+    npx expo run:android
+    ```
+  </TabItem>
+</Tabs>
+
+## Build de production
+
+Les builds de production sont générés via **EAS Build** (Expo Application Services).
+
+### Android (AAB — Google Play)
+
+```bash
+eas build --platform android --profile production
+```
+
+Le fichier `.aab` généré est prêt pour la soumission sur le **Google Play Store**.
+
+### iOS (IPA — App Store)
+
+```bash
+eas build --platform ios --profile production
+```
+
+Le fichier `.ipa` généré est prêt pour la soumission sur l'**Apple App Store**.
+
+### Les deux plateformes simultanément
+
+```bash
+eas build --platform all --profile production
+```
+
+<Aside type="note">
+  Le profil `production` dans `eas.json` utilise `autoIncrement: true` — le `versionCode` Android et le `buildNumber` iOS sont incrémentés automatiquement à chaque build.
+</Aside>
+
+## Profils EAS disponibles
+
+| Profil | Distribution | Format | Usage |
+|--------|-------------|--------|-------|
+| `development` | Interne | APK | Tests avec dev client |
+| `preview` | Interne | APK | Tests internes avant release |
+| `production` | Store | AAB / IPA | Publication sur les stores |
+
+## Soumission sur les stores
+
+### Google Play Store
+
+```bash
+eas submit --platform android --latest
+```
+
+### Apple App Store
+
+```bash
+eas submit --platform ios --latest
+```
+
+<Aside type="tip">
+  `--latest` soumet automatiquement le dernier build EAS réussi. Vous pouvez aussi spécifier un build avec `--id <build-id>`.
+</Aside>
+
+## Configuration `app.json`
+
+Les paramètres clés de l'application sont dans `app.json` :
+
+```json
+{
+  "expo": {
+    "name": "XetaSuite-Mobile",
+    "slug": "xetasuite-mobile",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.xetasuite.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.xetasuite.app"
+    }
+  }
+}
+```
+
+<Aside type="caution">
+  Le `package` Android et le `bundleIdentifier` iOS ne peuvent **pas être changés** après la première publication sur les stores.
+</Aside>
+
+## Permissions requises
+
+### Android (`android.permission.*`)
+
+| Permission | Raison |
+|-----------|--------|
+| `RECORD_AUDIO` | Assistant vocal — transcription de la voix |
+| `MODIFY_AUDIO_SETTINGS` | Gestion du microphone pendant la session vocale |
+| `FOREGROUND_SERVICE` | Maintien de la session audio en avant-plan |
+| `FOREGROUND_SERVICE_MEDIA_PLAYBACK` | Lecture audio en avant-plan |
+
+### iOS (`Info.plist`)
+
+| Clé | Raison |
+|-----|--------|
+| `NSMicrophoneUsageDescription` | Accès microphone pour l'assistant vocal |
+| `NSSpeechRecognitionUsageDescription` | Reconnaissance vocale |

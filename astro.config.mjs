@@ -93,6 +93,14 @@ export default defineConfig({
 						{ label: 'Cron / Scheduler', translations: { en: 'Cron / Scheduler' }, slug: 'deployment/cron' },
 					],
 				},
+				{
+					label: 'Application Mobile',
+					translations: { en: 'Mobile App' },
+					items: [
+						{ label: 'Installation & Build', translations: { en: 'Installation & Build' }, slug: 'mobile/installation' },
+						{ label: 'Politique de confidentialité', translations: { en: 'Privacy Policy' }, slug: 'mobile/privacy' },
+					],
+				},
 			],
 		}),
 	],

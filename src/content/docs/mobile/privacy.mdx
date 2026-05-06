@@ -1,0 +1,125 @@
+---
+title: Politique de Confidentialité
+description: Politique de confidentialité de l'application mobile XetaSuite, concernant notamment l'utilisation du microphone.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Dernière mise à jour : 6 mai 2026**
+
+Cette politique de confidentialité décrit comment l'application mobile **XetaSuite** collecte, utilise et protège vos données personnelles.
+
+<Aside type="note">
+  Cette page constitue la politique de confidentialité officielle de l'application mobile XetaSuite publiée sur le **Google Play Store** et l'**Apple App Store**. Elle est requise par les deux plateformes en raison de l'utilisation du microphone.
+</Aside>
+
+---
+
+## 1. Éditeur de l'application
+
+L'application mobile XetaSuite est éditée par **XetaSuite** (ci-après « nous »).
+
+---
+
+## 2. Données collectées
+
+### 2.1 Données de connexion
+
+Pour accéder à l'application, vous devez vous authentifier avec un compte XetaSuite. Les données de session sont stockées de manière sécurisée sur l'appareil via **Expo SecureStore** (chiffrement AES).
+
+Aucun mot de passe n'est stocké en clair sur l'appareil.
+
+### 2.2 Données audio (microphone)
+
+L'application utilise votre microphone **uniquement** pour l'assistant vocal intégré.
+
+**Ce qui se passe lors d'une session vocale :**
+
+1. Vous activez manuellement l'assistant vocal en appuyant sur le bouton prévu à cet effet.
+2. L'audio est capturé sur l'appareil et transmis à l'API de **reconnaissance vocale** de la plateforme (Android Speech Recognition API / Apple Speech Recognition API).
+3. La transcription textuelle résultante est envoyée à l'API XetaSuite pour traitement.
+4. L'audio brut n'est **jamais envoyé** aux serveurs XetaSuite.
+5. L'audio brut n'est **pas enregistré** sur l'appareil ni dans le cloud.
+
+**Ce que nous ne faisons pas :**
+- Nous n'enregistrons pas vos conversations.
+- Nous ne transmettons pas l'audio à des tiers (hors API de reconnaissance vocale native de la plateforme).
+- Nous n'utilisons pas l'audio à des fins publicitaires ou d'analyse comportementale.
+
+### 2.3 Données de navigation
+
+Les actions effectuées dans l'application (consultation de matériels, incidents, maintenances…) sont transmises à l'API XetaSuite dans le cadre du fonctionnement normal du service. Ces données sont liées à votre compte utilisateur.
+
+---
+
+## 3. Autorisations requises
+
+### Android
+
+| Permission | Finalité |
+|-----------|---------|
+| `android.permission.RECORD_AUDIO` | Capture audio pour l'assistant vocal |
+| `android.permission.MODIFY_AUDIO_SETTINGS` | Gestion du mode audio pendant la session vocale |
+| `android.permission.FOREGROUND_SERVICE` | Maintien de la session audio en avant-plan |
+| `android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK` | Lecture de la réponse vocale en avant-plan |
+
+### iOS
+
+| Clé Info.plist | Finalité |
+|---------------|---------|
+| `NSMicrophoneUsageDescription` | Capture audio pour l'assistant vocal |
+| `NSSpeechRecognitionUsageDescription` | Reconnaissance vocale par le système iOS |
+
+---
+
+## 4. Base légale du traitement
+
+Le traitement de vos données repose sur votre **consentement explicite** :
+- Pour le microphone : vous accordez l'autorisation lors de la première utilisation de l'assistant vocal. Vous pouvez la révoquer à tout moment dans les paramètres de votre appareil.
+- Pour les données de connexion et de navigation : elles sont nécessaires à l'exécution du contrat de service XetaSuite.
+
+---
+
+## 5. Durée de conservation
+
+| Donnée | Durée |
+|--------|-------|
+| Données de session (token) | Durée de la session, supprimées à la déconnexion |
+| Audio capturé | Non conservé (traitement en temps réel) |
+| Données de navigation / actions | Selon la politique de votre organisation (administrateur du site) |
+
+---
+
+## 6. Vos droits
+
+Conformément au **Règlement Général sur la Protection des Données (RGPD)**, vous disposez des droits suivants :
+- **Droit d'accès** à vos données
+- **Droit de rectification**
+- **Droit à l'effacement** (« droit à l'oubli »)
+- **Droit d'opposition** au traitement
+- **Droit à la portabilité** de vos données
+
+Pour exercer ces droits, contactez votre administrateur XetaSuite ou l'éditeur de l'application.
+
+---
+
+## 7. Sécurité
+
+Vos données sont protégées par :
+- Chiffrement des tokens d'authentification (Expo SecureStore / AES)
+- Communication chiffrée HTTPS entre l'application et l'API
+- Accès restreint aux données selon vos rôles et permissions dans XetaSuite
+
+---
+
+## 8. Contact
+
+Pour toute question relative à cette politique de confidentialité :
+
+**Email :** emeric@xetaravel.com
+
+---
+
+## 9. Modifications
+
+Nous nous réservons le droit de modifier cette politique de confidentialité. En cas de modification substantielle, vous serez informé via une notification dans l'application ou par email. La date de dernière mise à jour est indiquée en haut de cette page.

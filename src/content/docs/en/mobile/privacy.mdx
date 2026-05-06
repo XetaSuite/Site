@@ -1,0 +1,125 @@
+---
+title: Privacy Policy
+description: Privacy policy for the XetaSuite mobile application, specifically regarding microphone usage.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Last updated: May 6, 2026**
+
+This privacy policy describes how the **XetaSuite** mobile application collects, uses, and protects your personal data.
+
+<Aside type="note">
+  This page constitutes the official privacy policy for the XetaSuite mobile app published on the **Google Play Store** and the **Apple App Store**. It is required by both platforms due to the use of the microphone.
+</Aside>
+
+---
+
+## 1. Application Publisher
+
+The XetaSuite mobile application is published by **XetaSuite** (hereinafter "we", "us").
+
+---
+
+## 2. Data Collected
+
+### 2.1 Authentication Data
+
+To access the application, you must authenticate with a XetaSuite account. Session data is stored securely on the device using **Expo SecureStore** (AES encryption).
+
+No password is stored in plain text on the device.
+
+### 2.2 Audio Data (Microphone)
+
+The application uses your microphone **only** for the integrated voice assistant.
+
+**What happens during a voice session:**
+
+1. You manually activate the voice assistant by pressing the dedicated button.
+2. Audio is captured on the device and sent to the platform's **speech recognition API** (Android Speech Recognition API / Apple Speech Recognition API).
+3. The resulting text transcription is sent to the XetaSuite API for processing.
+4. Raw audio is **never sent** to XetaSuite servers.
+5. Raw audio is **not stored** on the device or in the cloud.
+
+**What we do not do:**
+- We do not record your conversations.
+- We do not transmit audio to third parties (beyond the platform's native speech recognition API).
+- We do not use audio for advertising or behavioral analysis purposes.
+
+### 2.3 Usage Data
+
+Actions performed in the application (viewing materials, incidents, maintenances, etc.) are transmitted to the XetaSuite API as part of normal service operation. This data is linked to your user account.
+
+---
+
+## 3. Required Permissions
+
+### Android
+
+| Permission | Purpose |
+|-----------|---------|
+| `android.permission.RECORD_AUDIO` | Audio capture for the voice assistant |
+| `android.permission.MODIFY_AUDIO_SETTINGS` | Audio mode management during voice sessions |
+| `android.permission.FOREGROUND_SERVICE` | Keep audio session alive in the foreground |
+| `android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK` | Foreground voice response playback |
+
+### iOS
+
+| Info.plist Key | Purpose |
+|---------------|---------|
+| `NSMicrophoneUsageDescription` | Audio capture for the voice assistant |
+| `NSSpeechRecognitionUsageDescription` | Speech recognition by the iOS system |
+
+---
+
+## 4. Legal Basis for Processing
+
+Data processing is based on your **explicit consent**:
+- For the microphone: you grant permission the first time you use the voice assistant. You can revoke it at any time in your device settings.
+- For authentication and usage data: it is necessary for the performance of the XetaSuite service contract.
+
+---
+
+## 5. Data Retention
+
+| Data | Retention |
+|------|-----------|
+| Session data (token) | Duration of the session, deleted on logout |
+| Captured audio | Not retained (real-time processing only) |
+| Navigation / action data | According to your organization's policy (site administrator) |
+
+---
+
+## 6. Your Rights
+
+Under the **General Data Protection Regulation (GDPR)**, you have the following rights:
+- **Right of access** to your data
+- **Right to rectification**
+- **Right to erasure** ("right to be forgotten")
+- **Right to object** to processing
+- **Right to data portability**
+
+To exercise these rights, contact your XetaSuite administrator or the application publisher.
+
+---
+
+## 7. Security
+
+Your data is protected by:
+- Encryption of authentication tokens (Expo SecureStore / AES)
+- Encrypted HTTPS communication between the app and the API
+- Data access restricted by your roles and permissions in XetaSuite
+
+---
+
+## 8. Contact
+
+For any questions regarding this privacy policy:
+
+**Email:** emeric@xetaravel.com
+
+---
+
+## 9. Changes
+
+We reserve the right to modify this privacy policy. In the event of a material change, you will be notified via an in-app notification or by email. The last updated date is shown at the top of this page.
